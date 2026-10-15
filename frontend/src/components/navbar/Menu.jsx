@@ -10,7 +10,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -23,6 +23,11 @@ export default function Menu() {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const location= useLocation();
+  const path = location.pathname;
+  console.log(path);
+
 
   return (
     <>
@@ -38,7 +43,7 @@ export default function Menu() {
      >
     
   
-      <ListItemButton onClick={handleClick} component={Link} to="/">
+      <ListItemButton onClick={handleClick} component={Link} to="/" selected={path === '/'}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
@@ -86,7 +91,7 @@ export default function Menu() {
      >
     
   
-      <ListItemButton component={Link} to="/create">
+      <ListItemButton component={Link} to="/create" selected={path === '/create'}>
         <ListItemIcon>
           <AddBoxIcon />
         </ListItemIcon>
