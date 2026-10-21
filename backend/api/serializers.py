@@ -17,7 +17,15 @@ class CharacteristicSerializer(serializers.ModelSerializer):
         model=Characteristic
         fields=('id','name')
 
-class FootballCLubSerializer(serializers.ModelSerializer):
+
+
+class FootballClubSerializer(serializers.ModelSerializer):
+    league_details = LeagueSerializer(source='league', read_only=True)
+    country_details = CountrySerializer(source='country', read_only=True)
+    characteristics_names = serializers.SerializerMethodField()
     class Meta:
-        model= FootballClub
-        fields="__all__"
+        model = FootballClub
+        fields = "__all__"
+    
+    def get_characteristics_names(self, obj): 
+        return [char.name for char in obj.characteristic.all()]
